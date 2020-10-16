@@ -1,5 +1,6 @@
 #Pequena biblioteca de finçoes que retorna algumas cadeias de caracteres da tabela ASCII
-#Joao Roberto
+#Discentes:
+#Joao Roberto & Claudionor Amâncio
 
 def _get_tables(table, a, b):
     for i in range(a, b):
