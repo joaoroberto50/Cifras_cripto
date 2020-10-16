@@ -178,4 +178,4 @@ for k in range(len(cifrado)):
         aux_2+= 1
 print('\n')
 print((len(chave)*10)*'=')
->>>>>>> 7a11485fc24a0101c8612d9b13efc34239ccce7f
+
