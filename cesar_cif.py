@@ -1,7 +1,13 @@
+# Discentes: João Roberto & Claudionor Amâncio
+
 from lib.caracteres import *
 import sys
 
+#gera vetor com caracteres da teabela ascii
 ALFB = ascii()
+
+#encripta pegando o indece da letra da palavra na tabela e adicionado o valor da chave
+#ex a = ALFB[0] + chave=>(5) a = ALFB[5]
 def encript(msg, chave, ALFB):
 	cifra = ''
 	for i in msg:
@@ -13,6 +19,8 @@ def encript(msg, chave, ALFB):
 		cifra+=x
 	return cifra
 
+#dencripta pegando o indece da letra da palavra na tabela e diminuindo o valor da chave
+#ex a = ALFB[5] - chave=>(5) a = ALFB[0]
 def decript(cifra, chave, ALFB):
 	msg = ''
 	for i in cifra:
@@ -24,6 +32,7 @@ def decript(cifra, chave, ALFB):
 		msg+=x
 	return msg
 
+#Abri Arquivo .txt
 def openFile(argv):
 	try:
 		arq = open(argv, 'r')
@@ -33,13 +42,15 @@ def openFile(argv):
 	except:
 		return 1
 
+#Modifica Arquivo .txt
 def changeFile(argv, msg):
 		arq = open(argv, 'w')
 		arq.write(msg)
 		arq.close()
 
 
-
+#Pega os Argumentos em linha de comando e faz o que tem que ser feito
+#No elif do help, explica como funciona
 if sys.argv[1] == '-e':
 	msg = openFile(sys.argv[2])
 	if(msg != 1):
