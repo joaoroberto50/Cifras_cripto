@@ -1,9 +1,15 @@
+# Discentes: Joãor Roberto & Claudionor Amâncio
+# Importação de arquivo caracteres.py, que foi criado e está na pasta lib;
+# e importação da biblioteca sys e random
 from lib.caracteres import *
 from random import choice
 import sys
 
+# Tabela que recebe os simbolos do alfabeto ASCII
 ALFB = ascii()
 
+# Função para tornar o tamanho da chave equivalente ao tamanho da mensagem,
+# repetindo a chave até que a mesma fique no tamanho da mensagem
 def msg_chave(msg, chave):
     if len(chave) < len(msg):
         aux = ''
@@ -21,6 +27,9 @@ def msg_chave(msg, chave):
     if len(chave) == len(msg):
         return chave
 
+# Vai percorrer a mensagem, somando o indice do caractere da mensagem (X)
+# com seu respectivo caractere da chave (Y), somando os dois (X+Y) e retornando
+# o caractere da tabela ALFB correspondente ao indice equivalente a soma.
 def encript(msg, chave, ALFB):
     cifra = ''
     chave = msg_chave(msg, chave)
@@ -34,6 +43,7 @@ def encript(msg, chave, ALFB):
         cifra+=x
     return cifra
 
+# A decriptação irá realizar a operação contrária a função de encriptação.
 def decript(cifra, chave, ALFB):
     msg = ''
     chave = msg_chave(cifra, chave)
@@ -47,6 +57,8 @@ def decript(cifra, chave, ALFB):
         msg+=x
     return msg
 
+# Gera uma chave aleatória correspondente ao tamanho da mensagem, ou do tamanho
+# que você informar.
 def gera_chave(msg, d = 1):
     if d == 1:
         key = ''
@@ -61,6 +73,7 @@ def gera_chave(msg, d = 1):
             key += choice(alf_key)
     return key
 
+# Função para abrir arquivo .txt
 def openFile(argv):
     try:
         arq = open(argv, 'r')
@@ -69,13 +82,14 @@ def openFile(argv):
         return msg
     except:
         return 1
-
+# Função para alterar arquivo .txt
 def changeFile(argv, msg):
     arq = open(argv, 'w')
     arq.write(msg)
     arq.close()
 
-
+# Declaração dos argumentos por linha da comando para:
+# Encriptação
 if sys.argv[1] == '-e':
     msg = openFile(sys.argv[2])
     if(msg != 1):
@@ -88,6 +102,7 @@ if sys.argv[1] == '-e':
         print('Guarde sua chave: {}'.format(key))
     else:
         print("ERRO: Arquivo nao existente")
+# Decriptação
 elif sys.argv[1] == '-d':
     msg = openFile(sys.argv[2])
     if(msg != 1):
@@ -96,6 +111,7 @@ elif sys.argv[1] == '-d':
         changeFile(sys.argv[2], msg)
     else:
         print("ERRO: Arquivo nao existente")
+# Modo de interação
 elif sys.argv[1] == '-a':
     msg = input("Encript >>> ")
     key = input("Chave >>> ")
@@ -103,6 +119,7 @@ elif sys.argv[1] == '-a':
     print(msg)
     msg = decript(msg, key, ALFB)
     print(msg)
+# Comando para ajuda
 elif sys.argv[1] == '-h':
     print("CIFRA MONOALFABETICA\nComo usar:")
     print("-e para criptografar um arquivo .txt\npython vigenere.py -e <arquivo.txt>\nSe quiser gerara uma chave aleatoria insira o argumento com o tamanho da chave\n")
