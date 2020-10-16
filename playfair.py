@@ -1,9 +1,14 @@
+# Discentes: João Roberto & Claudionor Amâncio
+
 from lib.caracteres import *
 from random import choice
 
+#vai definir uma tabela apenas de minusculos e vai retirar o char 'j'
 alf = lower_case(0)
 alf.pop(9)
 
+#vai separar as silabas, caracteres iguais em sequencia ex: 'ss' por sw e ws
+#Aida tabem subistitui ' ' por 'w' e adiciona 'w'
 def separa_silaba(msg):
     palavra = []
     silaba = ''
@@ -28,6 +33,8 @@ def separa_silaba(msg):
         palavra.append(silaba)
     return palavra
 
+#vai modificar a tabela adicionando a chave
+#cria uma tabela com qualquer chave e de qualquer tamanho
 def modifica_tabela(alf, key):
     ABC = []
     aux = []
@@ -53,14 +60,21 @@ def modifica_tabela(alf, key):
                 ABC[i].append(alf[x])
         if len(ABC) < 5:
             ABC.append([])
+    if len(ABC) > 5:
+        ABC.pop()
     return ABC
 
+#Acha a posiçao do caracter na tabela
 def found_posi(ctr, ALFB):
     for i in range(0, 5):
         for j in range(0, 5):
             if ALFB[i][j] == ctr:
                 return [i, j]
 
+#Faz a criptografia
+#achando a posição em ALFB, armazenando nas variaveis a e b (que sao vetores)
+#se um desses valores do vetor de a for igual ao de b, siguinifica: mesma linha ou coluna então vai andar para baixo e ou para direita
+#se forem diferentes a[1] = b[1] e b[1] = a[1]
 def encript(msg, ALFB):
     cifra = ''
     for i in msg:
@@ -88,6 +102,7 @@ def encript(msg, ALFB):
         cifra+= ALFB[b[0]][b[1]]
     return cifra
 
+#decripitar, a mesma coisa de encripitar, so que andando pra cima e para esquerda
 def decript(cifra, ALFB):
     msg = ''
     for i in cifra:
@@ -115,6 +130,7 @@ def decript(cifra, ALFB):
         msg += ALFB[b[0]][b[1]]
     return msg
 
+#vai gerar uma chave aleatoria de qualquer tamanho
 def gera_Key(n_char):
     key = ''
     afb = lower_case(0)
@@ -126,7 +142,7 @@ def gera_Key(n_char):
         afb.pop(x)
     return key
 
-
+#recebe a mensagem e faz o que tem que ser feito
 msg = input("Digite a frase para encripitar\nLembre-se de usar apenas carcteres minusculos da tabela ASCII\n>>> ")
 msg = separa_silaba(msg)
 key = gera_Key(7)
